@@ -117,6 +117,7 @@ public class StudentManagement {
                     StudentManagement.gpaStudent();
                     break;
                 case 6:
+                    StudentManagement.sortAvgStudent();
                     break;
                 case 7:
                     StudentManagement.seachStudent(sc);
