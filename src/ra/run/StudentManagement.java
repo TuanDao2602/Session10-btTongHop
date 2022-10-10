@@ -105,6 +105,7 @@ public class StudentManagement {
                     StudentManagement.inputListStudent(sc);
                     break;
                 case 2:
+                    StudentManagement.updateStudent(sc);
 
                     break;
                 case 3:
@@ -226,6 +227,7 @@ public class StudentManagement {
     }
 
     //case5 tìm kiếm theo tên lớp học
+    //dùng equals(chính xác) hoặc contains.(gần đúng)
     public static void seachClass(Scanner sc) {
         System.out.println("nhập vào tên lớp cần tìm");
         String classSeach = sc.nextLine();
@@ -264,6 +266,105 @@ public static void inputListStudent(Scanner sc) {
         }
     }
     //case2: cập nhật thông tin sinh viên
+    public static void updateStudent(Scanner sc){
+        System.out.println("nhập vào mã sinh viên cần cập nhật thông tin");
+        String studentIdUpdate = sc.nextLine();
+        for (Student student: listStudent) {
+            if (student.getStudentId().equals(studentIdUpdate)){
+                System.out.println("nhập vào tên sinh viên cần cập nhật");
+                String studentName = "";
+                do {
+                    studentName=sc.nextLine();
+                    if (studentName !=""&&studentName.length()!=0){
+                        if (studentName.length()>=6 && studentName.length()<=50){
+                            student.setStudentName(studentName);
+                            break;
+                        }else {
+                            System.err.println("nhập vào tên sinh viên từ 6-50 kí tự");
+                        }
+                    }
+
+                }while (true);
+            }
+            System.out.println("nhập vào tuổi sinh viên cần cập nhật");
+            String age="";
+            do {
+                age=sc.nextLine();
+                if (age!="" && age.length() !=0){
+                    if (Integer.parseInt(age)>=18){
+                        student.setAge(Integer.parseInt(age));
+                        break;
+                    }
+                }else {
+                    System.out.println("vui lòng nhập lại tuổi sinh viên lớn hơn hoặc bằng 18");
+                }
+
+            }while (true);
+
+            System.out.println("nhập vào giới tính sinh viên cần cập nhật");
+            String sex = sc.nextLine();
+            if (sex !="" && sex.length() != 0){
+                student.setSex(Boolean.parseBoolean(sex));
+            }
+            System.out.println("chọn lớp cho sinh viên");
+            int cntClass=1;
+            for (StudentClass studentClass:listClass) {
+                System.out.printf("%d.%s\n",cntClass,studentClass.getClassName());
+                cntClass++;
+            }
+            System.out.printf("%d không cập nhật lớp\n",cntClass);
+            System.out.println("sự lựa chọn của bạn là");
+            int choice =Integer.parseInt(sc.nextLine());
+            if (choice!= cntClass){
+                student.setStudentClass(listClass.get(choice-1));
+            }
+
+            //cập nhật điểm cho sinh viên;
+            StudentManagement.updateStudentMark(student.getListMarkJavaScript(), sc, student, "JavaScript");
+            StudentManagement.updateStudentMark(student.getListMarkJavaCore(), sc, student, "JavaCore");
+            StudentManagement.updateStudentMark(student.getListMarkJavaWeb(), sc, student, "JavaWeb");
+            //Tinh lai diem trung binh cho sinh vien
+            student.getAvgMark();
+            //Xep loai lai cho sinh vien
+            student.getGPA();
+            //Cap nhat trang thai sinh vien
+            System.out.println("Nhap vao trang thai sinh vien can cap nhat: ");
+            String studentStatus = sc.nextLine();
+            if (studentStatus != "" && studentStatus.length() != 0) {
+                student.setStudenstatus(Boolean.parseBoolean(studentStatus));
+            }
+        }
+//        if ()
+    }
+    public static void updateStudentMark(List<Float> listMark, Scanner sc, Student student, String subject) {
+        System.out.printf("Cap nhat diem %s cho sinh vien: \n", subject);
+        System.out.println("1. Nhap moi diem cho sinh vien");
+        System.out.println("2. Them moi diem cho sinh vien");
+        System.out.println("3. Cap nhat 1 diem trong danh sach");
+        System.out.println("4. Khong cap nhat");
+        System.out.print("Lua chon cua ban: ");
+        int choiceJS = Integer.parseInt(sc.nextLine());
+        switch (choiceJS) {
+            case 1:
+                List<Float> listJS = new ArrayList<>();
+                Student.inputMark(listJS, sc);
+                student.setListMarkJavaScript(listJS);
+                break;
+            case 2:
+                Student.inputMark(student.getListMarkJavaScript(), sc);
+                break;
+            case 3:
+                System.out.println("Nhap vao lan thi muon cap nhat: ");
+                int examTimes = Integer.parseInt(sc.nextLine());
+                System.out.println("Nhap vao diem thi cap nhat:");
+                float mark = Float.parseFloat(sc.nextLine());
+                //Cap nhat
+                student.getListMarkJavaScript().set(examTimes - 1, mark);
+                break;
+        }
+    }
+
+
     // case3 :in thông tin sinh viên
     public static void showListStudent(){
         for (int i = 0; i < listStudent.size(); i++) {
@@ -307,7 +408,7 @@ public static void inputListStudent(Scanner sc) {
         System.out.println("nhập vào tên sinh viên cần tìm");
         String stdSeach = sc.nextLine();
         for (int i = 0; i < listStudent.size(); i++) {
-            if (listStudent.get(i).equals(stdSeach)){
+            if (listStudent.get(i).getStudentName().equals(stdSeach)){
                 listStudent.get(i).displayData();
             }
 
@@ -332,7 +433,7 @@ public static void inputListStudent(Scanner sc) {
 
         }
         System.out.printf("số lượng học sinh yếu là : %d - học sinh Trung bình là: %d - Học sinh khá là : %d - học sinh giỏi là : %d",hsYeu,hsTB,hsKha,hsGioi);
-
+        System.out.println("\n");
     }
 
 //    case9 học sinh qua môn
@@ -346,6 +447,8 @@ public static void inputListStudent(Scanner sc) {
                 }
             }
             System.out.printf("Có %d học sinh đã đỗ.", count);
+            System.out.println("\n");
+
         }
 
 }

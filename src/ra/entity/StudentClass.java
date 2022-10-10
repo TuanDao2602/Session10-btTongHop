@@ -80,7 +80,7 @@ public class StudentClass implements IStudentManagement{
         System.out.println("Nhập vào mô tả lớp học");
         this.Descriptions=sc.nextLine();
         System.out.println("nhập vào trạng thái lớp học");
-        System.out.println("1 : Sắp bắt đầ " );
+        System.out.println("1 : Sắp bắt đầu " );
         System.out.println("2 : Đang hoạt động " );
         System.out.println("3 : Tạm ngừng hoạt động " );
         this.ClassStatus=Integer.parseInt(sc.nextLine());

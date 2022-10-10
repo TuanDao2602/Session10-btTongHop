@@ -232,15 +232,15 @@ public class Student implements IStudentManagement{
                 + listMarkJavaWeb.get(listMarkJavaWeb.size()-1))/3;
     }
     public void getGPA(){
-        String studentGPA;
-        if (getAvgMark()<5){
-            studentGPA=" yếu";
-        }else if (getAvgMark()<7){
-            studentGPA="trung bình";
-        }else if (getAvgMark()<9){
-            studentGPA="khá";
+
+        if (this.avgMark<5){
+           this.gpa=" yếu";
+        }else if (this.avgMark<7){
+            this.gpa="trung bình";
+        }else if (this.avgMark<9){
+            this.gpa="khá";
         }else {
-            studentGPA="giỏi";
+            this.gpa="giỏi";
         }
 
     }
