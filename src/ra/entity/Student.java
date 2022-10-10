@@ -173,7 +173,7 @@ public class Student implements IStudentManagement{
         this.sex=Boolean.parseBoolean( sc.nextLine());
         int cnt =1;
         System.out.println("nhập vào điểm thi JavaScript ");
-        inputMark(listMarkJavaCore,sc);
+        inputMark(listMarkJavaScript,sc);
         System.out.println("nhập vào điểm thi JavaCore ");
         inputMark(listMarkJavaCore,sc);
         System.out.println("nhập vào điểm thi JavaWeb ");
@@ -233,11 +233,11 @@ public class Student implements IStudentManagement{
     }
     public void getGPA(){
         String studentGPA;
-        if (this.avgMark<5){
+        if (getAvgMark()<5){
             studentGPA=" yếu";
-        }else if (this.avgMark<7){
+        }else if (getAvgMark()<7){
             studentGPA="trung bình";
-        }else if (this.avgMark<9){
+        }else if (getAvgMark()<9){
             studentGPA="khá";
         }else {
             studentGPA="giỏi";

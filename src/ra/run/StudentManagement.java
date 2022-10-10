@@ -179,13 +179,14 @@ public class StudentManagement {
             String updateDescriptions =sc.nextLine();
             if (updateDescriptions!=""&& updateDescriptions.length()!=0){
                 listClass.get(indexUpdateClass).setDescriptions(updateDescriptions);
-            }else {
-                System.out.println("mời nhập lại");
             }
+//            else {
+//                System.out.println("mời nhập lại");
+//            }
             System.out.println("nhập vào trạng thái lớp học");
             int updateClassStatus =Integer.parseInt(sc.nextLine());
             if (updateClassStatus>=1 && updateClassStatus<=3){
-                listClass.get(indexUpdateClass).setClassStatus(indexUpdateClass);
+                listClass.get(indexUpdateClass).setClassStatus(updateClassStatus);
             }else {
                 System.out.println("nhập lại từ 1-3");
             }
